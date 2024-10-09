@@ -153,3 +153,7 @@ a:hover{
 .debug{
   border: 1px solid red;
 }
+
+@media (max-width:505px) {
+
+}
