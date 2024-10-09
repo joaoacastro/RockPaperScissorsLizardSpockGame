@@ -33,8 +33,8 @@ const cardData = [
     name: "SCISSORS",
     type: "cuts Paper and decapitates Lizard",
     img: `${pathImages}scissors.png`, //ARRUMAR IMAGENS
-    WinOf: [1,2],
-    LoseOf: [0,3,4],
+    WinOf: [1, 2],
+    LoseOf: [0, 3, 4],
   },
 
   {
@@ -42,8 +42,8 @@ const cardData = [
     name: "PAPER",
     type: "covers Rock and disproves Spock",
     img: `${pathImages}paper.png`, //ARRUMAR IMAGENS
-    WinOf: [3,4],
-    LoseOf: [0,1,2],
+    WinOf: [3, 4],
+    LoseOf: [0, 1, 2],
   },
 
   {
@@ -51,8 +51,8 @@ const cardData = [
     name: "LIZARD",
     type: "poisons Spock and eats Paper",
     img: `${pathImages}lizard.png`, //ARRUMAR IMAGENS
-    WinOf: [4,1],
-    LoseOf: [0,2,3],
+    WinOf: [4, 1],
+    LoseOf: [0, 2, 3],
   },
 
   {
@@ -60,8 +60,8 @@ const cardData = [
     name: "ROCK",
     type: "crushes Lizard and crushes Scissors",
     img: `${pathImages}rock.png`, //ARRUMAR IMAGENS
-    WinOf: [2,0],
-    LoseOf: [1,3,4],
+    WinOf: [2, 0],
+    LoseOf: [1, 3, 4],
   },
 
   {
@@ -69,8 +69,8 @@ const cardData = [
     name: "SPOCK",
     type: "smashes Scissors and vaporizes Rock",
     img: `${pathImages}spock.png`, //ARRUMAR IMAGENS
-    WinOf: [0,3],
-    LoseOf: [1,2,4],
+    WinOf: [0, 3],
+    LoseOf: [1, 2, 4],
   },
 ];
 
@@ -98,10 +98,10 @@ async function createCardImage(IdCard, fieldSide) {
 
   if (fieldSide === state.playerSides.computer) {
     cardImage.addEventListener("click", () => {
-      playAudio("alert")
+      playAudio("alert");
       setTimeout(() => {
         alert("Ops! What are you doing here? 🤔");
-      }, 500);// Meio segundo de atraso para garantir que o som toque antes
+      }, 500); // Meio segundo de atraso para garantir que o som toque antes
     });
   }
 
@@ -172,12 +172,14 @@ async function updateScore() {
 async function checkDuelResults(playerCardId, computerCardId) {
   let playerCard = cardData[playerCardId];
   let computerCard = cardData[computerCardId];
-  
-  if(playerCard === computerCard){
+
+  if (playerCard === computerCard) {
     duelResults = "TIE";
     await playAudio("tie");
+    
+    return duelResults;
   }
-
+  
   if (playerCard.WinOf.includes(computerCardId)) {
     duelResults = "YOU WIN! 😁";
     await playAudio("win");
@@ -212,7 +214,7 @@ async function drawCards(cardNumbers, fieldSide) {
     const randomIdCard = await getRandomCardId();
     const cardImage = await createCardImage(randomIdCard, fieldSide);
 
-    console.log(fieldSide);
+    // console.log(fieldSide);
 
     document.getElementById(fieldSide).appendChild(cardImage);
   }
@@ -222,7 +224,7 @@ async function playPageSound() {
   const bgm = document.getElementById("bgm");
   bgm.muted = false;
   bgm.volume = 0.8;
-  bgm.play();  
+  bgm.play();
 }
 
 async function init() {
@@ -230,7 +232,6 @@ async function init() {
   drawCards(5, state.playerSides.computer);
 
   await playPageSound();
-  
 }
 
 init();
