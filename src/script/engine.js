@@ -218,13 +218,18 @@ async function drawCards(cardNumbers, fieldSide) {
   }
 }
 
-function init() {
+async function playPageSound() {
+  const bgm = document.getElementById("bgm");
+  bgm.muted = false;
+  bgm.volume = 0.8;
+  bgm.play();  
+}
+
+async function init() {
   drawCards(5, state.playerSides.player1);
   drawCards(5, state.playerSides.computer);
 
-  const bgm = document.getElementById("bgm");
-  bgm.volume = 0.8;
-  bgm.play();
+  await playPageSound();
   
 }
 
