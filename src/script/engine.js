@@ -170,8 +170,13 @@ async function updateScore() {
 }
 
 async function checkDuelResults(playerCardId, computerCardId) {
-  let duelResults = "TIE";
   let playerCard = cardData[playerCardId];
+  let computerCard = cardData[computerCardId];
+  
+  if(playerCard === computerCard){
+    duelResults = "TIE";
+    await playAudio("tie");
+  }
 
   if (playerCard.WinOf.includes(computerCardId)) {
     duelResults = "YOU WIN! 😁";
